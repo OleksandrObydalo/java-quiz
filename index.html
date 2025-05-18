@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Топ 100 вопросов на собеседовании Junior Java Developer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+    {
+      "imports": {
+        "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+      }
+    }
+    </script>
+    <script type="module" src="app.js" defer></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Топ 100 вопросов на собеседовании Junior Java Developer</h1>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="label">Отмечено как простые:</span>
+                    <span class="count">{{ stats.simpleCount }}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="label">Надо повторить:</span>
+                    <span class="count">{{ stats.reviewCount }}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="label">Всего вопросов:</span>
+                    <span class="count">{{ questions.length }}</span>
+                </div>
+            </div>
+            <div class="filters">
+                <button @click="filter = 'all'" :class="{ active: filter === 'all' }">Все вопросы</button>
+                <button @click="filter = 'simple'" :class="{ active: filter === 'simple' }">Простые</button>
+                <button @click="filter = 'review'" :class="{ active: filter === 'review' }">Надо повторить</button>
+            </div>
+        </header>
+        
+        <div class="question-list">
+            <div v-for="(question, index) in filteredQuestions" :key="index" class="question-card" :class="{ 'simple': question.isSimple, 'review': question.needsReview }">
+                <div class="question-number">{{ index + 1 }}</div>
+                <div class="question-content">
+                    <h3>{{ question.question }}</h3>
+                </div>
+                <div class="actions">
+                    <button @click="toggleSimple(index)" :class="{ active: question.isSimple }">
+                        {{ question.isSimple ? 'Отмечено как простое' : 'Отметить как простое' }}
+                    </button>
+                    <button @click="toggleReview(index)" :class="{ active: question.needsReview }">
+                        {{ question.needsReview ? 'Отмечено для повторения' : 'Надо повторить' }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
