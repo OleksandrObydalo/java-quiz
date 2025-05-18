@@ -43,8 +43,14 @@
                 <div class="question-number">{{ index + 1 }}</div>
                 <div class="question-content">
                     <h3>{{ question.question }}</h3>
+                    <div v-if="question.showAnswer" class="answer">
+                        <div v-html="question.answer"></div>
+                    </div>
                 </div>
                 <div class="actions">
+                    <button @click="toggleAnswer(index)" class="toggle-answer">
+                        {{ question.showAnswer ? 'Скрыть ответ' : 'Показать ответ' }}
+                    </button>
                     <button @click="toggleSimple(index)" :class="{ active: question.isSimple }">
                         {{ question.isSimple ? 'Отмечено как простое' : 'Отметить как простое' }}
                     </button>
